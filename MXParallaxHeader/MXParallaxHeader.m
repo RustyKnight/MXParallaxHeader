@@ -245,7 +245,7 @@ static void * const kMXParallaxHeaderKVOContext = (void*)&kMXParallaxHeaderKVOCo
 		.size.height    = MAX(relativeHeight, minimumHeight)
 	};
 
-	NSLog(@"frame = %f", frame);
+	NSLog(@"frame = %fx%fx%fx%f", frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
 
 	self.contentView.frame = frame;
 	
