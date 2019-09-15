@@ -82,6 +82,12 @@ typedef NS_ENUM(NSInteger, MXParallaxHeaderMode) {
  */
 @property (nonatomic) IBInspectable CGFloat minimumHeight;
 
+/*
+ How far to offset the content, this will get added to the height and minimumHeight values when
+ the header is laid out
+ */
+@property (nonatomic) IBInspectable CGFloat verticalOffset;
+
 /**
  The parallax header behavior mode.
  */

@@ -379,7 +379,7 @@
 					9C01BC6E1DA3E4D40032494C = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = C75GEDTP26;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 1030;
 						ProvisioningStyle = Automatic;
 					};
 					9C01BC8F1DA3E6810032494C = {
