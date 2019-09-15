@@ -228,22 +228,22 @@ static void * const kMXParallaxHeaderKVOContext = (void*)&kMXParallaxHeaderKVOCo
 	CGFloat prefHeight = self.preferredHeight;
 	CGFloat height = self.height;
 	
-	NSLog(@">> height = %f", self.height);
-	NSLog(@">> minimumHeight = %f", self.minimumHeight);
-	NSLog(@">> preferredHeight = %f", self.preferredHeight);
-	NSLog(@">> offsetMinimum = %f", min);
-	NSLog(@">> verticalOffset = %f", self.verticalOffset);
+//	NSLog(@">> height = %f", self.height);
+//	NSLog(@">> minimumHeight = %f", self.minimumHeight);
+//	NSLog(@">> preferredHeight = %f", self.preferredHeight);
+//	NSLog(@">> offsetMinimum = %f", min);
+//	NSLog(@">> verticalOffset = %f", self.verticalOffset);
 
 	CGFloat minimumHeight = MIN(min, prefHeight);
 
-	NSLog(@">> scrollView.contentOffset.y = %f", self.scrollView.contentOffset.y);
-	NSLog(@">> scrollView.contentInset.top = %f", self.scrollView.contentInset.top);
+//	NSLog(@">> scrollView.contentOffset.y = %f", self.scrollView.contentOffset.y);
+//	NSLog(@">> scrollView.contentInset.top = %f", self.scrollView.contentInset.top);
 
 	CGFloat relativeYOffset = self.scrollView.contentOffset.y + self.scrollView.contentInset.top - height;
 	CGFloat relativeHeight  = -relativeYOffset;
 
-	NSLog(@">> minimumHeight = %f", minimumHeight);
-	NSLog(@">> relativeHeight = %f", relativeHeight);
+//	NSLog(@">> minimumHeight = %f", minimumHeight);
+//	NSLog(@">> relativeHeight = %f", relativeHeight);
 
 	CGRect frame = (CGRect){
 		.origin.x       = 0,
@@ -252,7 +252,7 @@ static void * const kMXParallaxHeaderKVOContext = (void*)&kMXParallaxHeaderKVOCo
 		.size.height    = MAX(relativeHeight, minimumHeight)
 	};
 
-	NSLog(@"frame = %fx%fx%fx%f", frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
+//	NSLog(@"frame = %fx%fx%fx%f", frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
 
 	self.contentView.frame = frame;
 	
