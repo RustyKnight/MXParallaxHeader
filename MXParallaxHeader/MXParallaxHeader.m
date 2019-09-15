@@ -227,17 +227,26 @@ static void * const kMXParallaxHeaderKVOContext = (void*)&kMXParallaxHeaderKVOCo
 	CGFloat min = self.minimumHeight + self.verticalOffset;
 	CGFloat prefHeight = self.preferredHeight;
 	
+	NSLog(@"minimumHeight = %f", self.minimumHeight);
+	NSLog(@"preferredHeight = %f", self.preferredHeight);
+	NSLog(@"verticalOffset = %f", self.verticalOffset);
+
 	CGFloat minimumHeight = MIN(min, prefHeight);
 	CGFloat relativeYOffset = self.scrollView.contentOffset.y + self.scrollView.contentInset.top - prefHeight;
 	CGFloat relativeHeight  = -relativeYOffset;
-	
+
+	NSLog(@"minimumHeight = %f", minimumHeight);
+	NSLog(@"relativeHeight = %f", relativeHeight);
+
 	CGRect frame = (CGRect){
 		.origin.x       = 0,
 		.origin.y       = relativeYOffset,
 		.size.width     = self.scrollView.frame.size.width,
 		.size.height    = MAX(relativeHeight, minimumHeight)
 	};
-	
+
+	NSLog(@"frame = %f", frame);
+
 	self.contentView.frame = frame;
 	
 	CGFloat div = prefHeight - min;
