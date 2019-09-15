@@ -230,7 +230,7 @@ static void * const kMXParallaxHeaderKVOContext = (void*)&kMXParallaxHeaderKVOCo
 	
 	self.contentView.frame = frame;
 	
-	CGFloat div = self.height - self.minimumHeight;
+	CGFloat div = prefHeight - min;
 	self.progress = (self.contentView.frame.size.height - self.minimumHeight) / (div? : self.height);
 }
 
