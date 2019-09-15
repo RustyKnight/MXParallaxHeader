@@ -50,6 +50,7 @@ static void * const kMXParallaxHeaderKVOContext = (void*)&kMXParallaxHeaderKVOCo
 
 @interface MXParallaxHeader ()
 @property (nonatomic,weak) UIScrollView *scrollView;
+@property (nonatomic,readonly) CGFloat preferredHeight;
 @end
 
 @implementation MXParallaxHeader {
@@ -57,6 +58,10 @@ static void * const kMXParallaxHeaderKVOContext = (void*)&kMXParallaxHeaderKVOCo
 }
 
 @synthesize contentView = _contentView;
+
+-(CGFloat)preferredHeight {
+	return self.height + self.verticalOffset;
+}
 
 #pragma mark Properties
 
@@ -113,7 +118,8 @@ static void * const kMXParallaxHeaderKVOContext = (void*)&kMXParallaxHeaderKVOCo
 		_scrollView = scrollView;
 		
 		//Adjust content inset
-		[self adjustScrollViewTopInset:scrollView.contentInset.top + self.height];
+		CGFloat prefHeight = self.preferredHeight;
+		[self adjustScrollViewTopInset:scrollView.contentInset.top + prefHeight];
 		[scrollView addSubview:self.contentView];
 		
 		//Layout content view
@@ -176,7 +182,8 @@ static void * const kMXParallaxHeaderKVOContext = (void*)&kMXParallaxHeaderKVOCo
 	[self.view.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor].active = YES;
 	[self.view.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor].active = YES;
 	[self.view.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor].active = YES;
-	[self.view.heightAnchor constraintEqualToConstant:self.height].active = YES;
+	CGFloat prefHeight = self.preferredHeight;
+	[self.view.heightAnchor constraintEqualToConstant:prefHeight].active = YES;
 }
 
 - (void)setFillModeConstraints {
@@ -190,7 +197,8 @@ static void * const kMXParallaxHeaderKVOContext = (void*)&kMXParallaxHeaderKVOCo
 	[self.view.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor].active = YES;
 	[self.view.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor].active = YES;
 	[self.view.topAnchor constraintEqualToAnchor:self.contentView.topAnchor].active = YES;
-	[self.view.heightAnchor constraintGreaterThanOrEqualToConstant:self.height].active = YES;
+	CGFloat prefHeight = self.preferredHeight;
+	[self.view.heightAnchor constraintGreaterThanOrEqualToConstant:prefHeight].active = YES;
 	
 	NSLayoutConstraint *constraint = [self.view.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor];
 	constraint.priority = UILayoutPriorityDefaultHigh;
@@ -201,21 +209,23 @@ static void * const kMXParallaxHeaderKVOContext = (void*)&kMXParallaxHeaderKVOCo
 	[self.view.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor].active = YES;
 	[self.view.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor].active = YES;
 	[self.view.topAnchor constraintEqualToAnchor:self.contentView.topAnchor].active = YES;
-	[self.view.heightAnchor constraintEqualToConstant:self.height].active = YES;
+	CGFloat prefHeight = self.preferredHeight;
+	[self.view.heightAnchor constraintEqualToConstant:prefHeight].active = YES;
 }
 
 - (void)setBottomModeConstraints {
 	[self.view.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor].active = YES;
 	[self.view.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor].active = YES;
 	[self.view.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor].active = YES;
-	[self.view.heightAnchor constraintEqualToConstant:self.height].active = YES;
+	CGFloat prefHeight = self.preferredHeight;
+	[self.view.heightAnchor constraintEqualToConstant:prefHeight].active = YES;
 }
 
 #pragma mark Private Methods
 
 - (void)layoutContentView {
 	CGFloat min = self.minimumHeight + self.verticalOffset;
-	CGFloat prefHeight = self.height + self.verticalOffset;
+	CGFloat prefHeight = self.preferredHeight;
 	
 	CGFloat minimumHeight = MIN(min, prefHeight);
 	CGFloat relativeYOffset = self.scrollView.contentOffset.y + self.scrollView.contentInset.top - prefHeight;
@@ -231,7 +241,7 @@ static void * const kMXParallaxHeaderKVOContext = (void*)&kMXParallaxHeaderKVOCo
 	self.contentView.frame = frame;
 	
 	CGFloat div = prefHeight - min;
-	self.progress = (self.contentView.frame.size.height - self.minimumHeight) / (div? : self.height);
+	self.progress = (self.contentView.frame.size.height - min) / (div? : prefHeight);
 }
 
 - (void)adjustScrollViewTopInset:(CGFloat)top {
